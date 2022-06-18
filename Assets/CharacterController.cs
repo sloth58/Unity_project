@@ -104,6 +104,21 @@ public class CharacterController : MonoBehaviour
 
         }
 
+
+
+        if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space)) && grounded)
+        {
+            rigid.velocity = new Vector2(rigid.velocity.x, jump_factor);
+
+            anim.SetBool("is_jumping", true);
+
+            int range = Random.Range(0, 3);
+            source.clip = jump_clip[range];
+            source.volume = 0.5f;
+            source.Play();
+
+        }
+
     }
 
     // Update is called once per frame
@@ -113,19 +128,6 @@ public class CharacterController : MonoBehaviour
         if(grounded)
         rigid.velocity = new Vector2(horizantal * speed_factor, rigid.velocity.y);
 
-
-        if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space)) && grounded)
-        {
-            rigid.velocity = new Vector2(rigid.velocity.x, jump_factor);
-            
-            anim.SetBool("is_jumping", true);
-            
-            int range = Random.Range(0, 3);
-            source.clip = jump_clip[range];
-            source.volume = 0.5f;
-            source.Play();
-
-        }
     }
 
     private void OnCollisionStay2D(Collision2D collision)
